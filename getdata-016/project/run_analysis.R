@@ -6,6 +6,7 @@ dataDir <- "./project-data/UCI HAR Dataset"
 activityLabels <- setDT(read.table(paste(dataDir, "activity_labels.txt", sep="/"), col.names=c("activityId","activity"), stringsAsFactors=FALSE))
 xAxisLabels <- read.table(file.path(dataDir, "features.txt"), col.names=c("columnNumber", "measurement"), stringsAsFactors=FALSE)
 
+# Clean-up the labels since some characters are not valid.
 cleanName <- function(x) { gsub("\\.$", "", gsub("\\.+", ".", gsub("[(),-]", ".", x, perl=TRUE), perl=TRUE), perl=TRUE) }
 xAxisLabels$measurement <- sapply(xAxisLabels$measurement, cleanName)
 
